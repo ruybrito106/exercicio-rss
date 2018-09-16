@@ -1,10 +1,8 @@
 package br.ufpe.cin.if710.rss
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.support.v4.content.ContextCompat.startActivity
-import android.support.v7.view.menu.MenuView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -28,9 +26,12 @@ class RSSAdapter(private val items: List<ItemRSS>) :
         val title = holder.linearLayout.findViewById(R.id.item_titulo) as TextView
         val text = holder.linearLayout.findViewById(R.id.item_data) as TextView
 
+        // set title and description on item view
+        // assuming data is the description attribute of the ItemRSS object
         title.text = items[position].title
         text.text = items[position].description
 
+        // set on click listener to title of each item
         title.setOnClickListener {
             val intent = Intent(
                     Intent.ACTION_VIEW,

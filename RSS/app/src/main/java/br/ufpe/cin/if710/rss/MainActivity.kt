@@ -30,6 +30,7 @@ class MainActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // get conteudoRSS as RecyclerView
         conteudoRSS = findViewById(R.id.conteudoRSS) as RecyclerView
     }
 
@@ -37,6 +38,7 @@ class MainActivity : Activity() {
         val parser = ParserRSS
         val items = parser.parse(feedXML)
 
+        // intialize manager and adapter for RecyclerView
         viewManager = LinearLayoutManager(this)
         viewAdapter = RSSAdapter(items)
 
@@ -51,8 +53,10 @@ class MainActivity : Activity() {
         super.onStart()
         try {
             doAsync {
+                // fetching RSS_FEED path from resources
                 val feedXML = getRssFeed(getString(R.string.rssfeed))
                 uiThread {
+                    // call function to parse feed and apply manager and adapter to view
                     fillAdapter(feedXML)
                 }
             }
@@ -62,7 +66,6 @@ class MainActivity : Activity() {
 
     }
 
-    //Opcional - pesquise outros meios de obter arquivos da internet - bibliotecas, etc.
     @Throws(IOException::class)
     private fun getRssFeed(feed: String): String {
         var `in`: InputStream? = null
