@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 
-class RSSAdapter(private val items: List<ItemRSS>) :
+class RSSAdapter(private val items: List<ItemRSS>, val dbInstance: SQLiteRSSHelper) :
         RecyclerView.Adapter<RSSAdapter.MyViewHolder>() {
 
     class MyViewHolder(val linearLayout: LinearLayout) : RecyclerView.ViewHolder(linearLayout)
@@ -33,6 +33,9 @@ class RSSAdapter(private val items: List<ItemRSS>) :
 
         // set on click listener to title of each item
         title.setOnClickListener {
+
+            dbInstance.markAsRead(items[position].link)
+
             val intent = Intent(
                     Intent.ACTION_VIEW,
                     Uri.parse(items[position].link)
